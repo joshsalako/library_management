@@ -39,8 +39,8 @@ The system is built using Django and Django Rest Framework, with separate databa
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/library-management.git
-   cd library-management
+   git clone https://github.com/joshsalako/library_management.git
+   cd library_management
    ```
 
 2. Install Docker and Docker Compose if not already installed.
