@@ -1,0 +1,49 @@
+services:
+  frontend_api:
+    build: .
+    command: >
+      sh -c "
+      python -c 'import redis; redis.Redis(host=\"redis\", port=6379).ping()' || exit 1;
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    environment:
+      - DATABASE_NAME=frontend_db.sqlite3
+
+  admin_api:
+    build: .
+    command: >
+      sh -c "
+      python -c 'import redis; redis.Redis(host=\"redis\", port=6379).ping()' || exit 1;
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8001"
+    volumes:
+      - .:/app
+    ports:
+      - "8001:8001"
+    depends_on:
+      - redis
+    environment:
+      - DATABASE_NAME=admin_db.sqlite3
+
+  redis:
+    image: "redis:alpine"
+
+  subscriber:
+    build: .
+    command: >
+      sh -c "
+      python -c 'import redis; redis.Redis(host=\"redis\", port=6379).ping()' || exit 1;
+      python manage.py migrate &&
+      python manage.py run_subscriber"
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    environment:
+      - DATABASE_NAME=frontend_db.sqlite3

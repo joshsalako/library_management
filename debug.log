@@ -1,0 +1,4 @@
+Error in borrow action: No Book matches the given query.
+Internal Server Error: /api/frontend/books/9999/borrow/
+Error in borrow action: No Book matches the given query.
+Internal Server Error: /api/frontend/books/9999/borrow/
